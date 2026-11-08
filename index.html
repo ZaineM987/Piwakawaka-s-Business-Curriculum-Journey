@@ -50,9 +50,9 @@
         .comic-bubble { position: relative; }
         .comic-bubble::after { content: ''; position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); border-width: 20px 20px 0; border-style: solid; border-color: rgba(255,255,255,0.95) transparent transparent transparent; display: block; width: 0; }
 
-        #map-nodes::-webkit-scrollbar { width: 10px; }
-        #map-nodes::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); border-radius: 10px; margin-block: 10px; }
-        #map-nodes::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 10px; border: 2px solid transparent; background-clip: padding-box; }
+        #map-nodes::-webkit-scrollbar, #level-playarea::-webkit-scrollbar { width: 10px; }
+        #map-nodes::-webkit-scrollbar-track, #level-playarea::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); border-radius: 10px; margin-block: 10px; }
+        #map-nodes::-webkit-scrollbar-thumb, #level-playarea::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 10px; border: 2px solid transparent; background-clip: padding-box; }
 
         .tts-active { box-shadow: 0 0 0 6px rgba(52, 211, 153, 0.4); border-color: #34d399 !important; transform: scale(1.02); transition: all 0.3s ease-in-out; }
 
@@ -160,20 +160,21 @@
             </div>
         </div>
 
-        <div class="relative flex-grow flex flex-col items-center justify-between p-4 sm:p-8 overflow-hidden z-10" id="level-playarea">
-            <div class="flex-grow flex flex-col items-center justify-center w-full mt-16 sm:mt-0 relative">
+        <!-- PLAY AREA WITH SCROLLING ENABLED -->
+        <div class="relative flex-grow flex flex-col items-center justify-start gap-6 p-4 sm:p-8 overflow-y-auto z-10 pt-20 sm:pt-24" id="level-playarea">
+            <div class="flex-shrink-0 flex flex-col items-center justify-center w-full relative max-w-3xl mx-auto">
                 <div id="level-character" class="mb-4 z-20 drop-shadow-2xl scale-125"></div>
                 
-                <div id="instruction-box" class="bg-white/95 p-5 rounded-3xl shadow-[0_8px_0_rgba(0,0,0,0.05)] border-4 border-white text-center max-w-3xl w-full mb-8 transition-all duration-300 comic-bubble mt-2 relative z-10">
-                    <p id="level-instruction" class="text-2xl sm:text-3xl font-black text-emerald-900"></p>
+                <div id="instruction-box" class="bg-white/95 p-5 rounded-3xl shadow-[0_8px_0_rgba(0,0,0,0.05)] border-4 border-white text-center w-full mb-8 transition-all duration-300 comic-bubble mt-2 relative z-10">
+                    <p id="level-instruction" class="text-xl sm:text-3xl font-black text-emerald-900"></p>
                 </div>
 
-                <div id="level-visual" class="bg-white/90 p-6 rounded-[3rem] shadow-inner border-8 border-[#eaf4e5] text-4xl sm:text-6xl font-black text-gray-800 text-center tracking-widest min-h-[140px] flex items-center justify-center w-full max-w-lg mb-8 transition-transform duration-200">
+                <div id="level-visual" class="bg-white/90 p-4 sm:p-6 rounded-[3rem] shadow-inner border-8 border-[#eaf4e5] text-3xl sm:text-6xl font-black text-gray-800 text-center tracking-widest min-h-[120px] flex items-center justify-center w-full max-w-lg mb-8 transition-transform duration-200">
                     <!-- Injected via JS -->
                 </div>
             </div>
 
-            <div id="level-options" class="flex flex-wrap justify-center gap-4 sm:gap-6 w-full pb-8 z-20 relative">
+            <div id="level-options" class="flex flex-wrap justify-center gap-4 sm:gap-6 w-full max-w-3xl pb-16 z-20 relative mt-auto">
                 <!-- Buttons injected via JS -->
             </div>
         </div>
@@ -185,22 +186,22 @@
     </div>
 
     <!-- SUCCESS MODAL -->
-    <div id="modal-success" class="absolute inset-0 bg-black/40 flex items-center justify-center z-[70] hidden backdrop-blur-sm">
-        <div class="bg-white p-8 rounded-3xl shadow-2xl border-8 border-emerald-300 text-center max-w-md mx-4 transform transition-transform scale-90" id="success-box">
+    <div id="modal-success" class="absolute inset-0 bg-black/40 flex items-center justify-center z-[70] hidden backdrop-blur-sm p-4">
+        <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-2xl border-8 border-emerald-300 text-center w-full max-w-md transform transition-transform scale-90" id="success-box">
             <div class="text-7xl mb-4 animate-bounce">🌟</div>
             <h2 class="text-3xl font-black text-emerald-500 mb-4" id="success-title">Ka pai!</h2>
             <p class="text-xl font-bold text-gray-700 mb-8" id="success-msg">You are super smart!</p>
-            <button id="btn-next" class="game-btn bg-emerald-500 hover:bg-emerald-400 text-white font-black text-2xl py-4 px-8 rounded-full border-4 border-white w-full">Next Lesson!</button>
+            <button id="btn-next" class="game-btn bg-emerald-500 hover:bg-emerald-400 text-white font-black text-xl sm:text-2xl py-4 px-8 rounded-full border-4 border-white w-full">Next Lesson!</button>
         </div>
     </div>
 
     <!-- FINALE MODAL -->
-    <div id="modal-finale" class="absolute inset-0 bg-black/40 flex items-center justify-center z-[70] hidden backdrop-blur-sm">
-        <div class="bg-white p-8 rounded-3xl shadow-2xl border-8 border-amber-300 text-center max-w-lg mx-4 transform transition-transform scale-90" id="finale-box">
-            <div class="text-8xl mb-4 animate-bounce">🎊🏆🎊</div>
-            <h2 class="text-4xl font-black text-amber-500 mb-4">Tino Pai Rawa Atu!</h2>
-            <p class="text-xl font-bold text-gray-700 mb-8">You finished the whole journey! You know so much about how the world works!</p>
-            <button id="btn-restart" class="game-btn bg-amber-400 hover:bg-amber-300 text-white font-black text-2xl py-4 px-8 rounded-full border-4 border-white w-full">Play Again!</button>
+    <div id="modal-finale" class="absolute inset-0 bg-black/40 flex items-center justify-center z-[70] hidden backdrop-blur-sm p-4">
+        <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-2xl border-8 border-amber-300 text-center w-full max-w-lg transform transition-transform scale-90" id="finale-box">
+            <div class="text-7xl sm:text-8xl mb-4 animate-bounce">🎊🏆🎊</div>
+            <h2 class="text-3xl sm:text-4xl font-black text-amber-500 mb-4">Tino Pai Rawa Atu!</h2>
+            <p class="text-lg sm:text-xl font-bold text-gray-700 mb-8">You finished the whole journey! You know so much about how the world works!</p>
+            <button id="btn-restart" class="game-btn bg-amber-400 hover:bg-amber-300 text-white font-black text-xl sm:text-2xl py-4 px-8 rounded-full border-4 border-white w-full">Play Again!</button>
         </div>
     </div>
 
@@ -304,101 +305,101 @@
             {
                 id: 1, title: "1. Counting & Checking", icon: "🧸", subject: "Accounting (1-5)", bgGradient: "bg-gradient-to-b from-[#eaf4e5] to-[#f8f4e6]", characterId: "svg-kekeno",
                 questions: [
-                    { instruction: "1. Financial Acct: If you have 3 red blocks and 2 blue blocks, how many blocks do you have in total?", visualHTML: `<div class="flex gap-2 text-6xl">🟥 🟥 🟥 <span class="text-rose-400">+</span> 🟦 🟦</div>`, options: ["4", "5", "6"], correctAnswer: "5", successMsg: "Ka pai! Accounting is all about keeping track of numbers." },
-                    { instruction: "2. Managerial Acct: If you want to eat 1 apple tomorrow and 1 the next day, how many do you need to plan for?", visualHTML: `<div class="flex gap-2 text-6xl">🍎 <span class="text-rose-400">+</span> 🍎 <span class="text-rose-400">= ?</span></div>`, options: ["2", "3", "4"], correctAnswer: "2", successMsg: "Great job! Managers plan for what they will need later." },
-                    { instruction: "3. Cost Acct: If making a lemonade costs you 2 lemons, and you have 2 lemons, can you make it?", visualHTML: `<div class="flex items-center gap-2 text-6xl">🍋🍋 <span class="text-rose-400">❓</span> 🍹</div>`, options: ["Yes", "No", "Maybe"], correctAnswer: "Yes", successMsg: "Awesome! Knowing what things cost is very important." },
-                    { instruction: "4. Auditing: Your friend counted 3 stars. Let's double check. How many are there really?", visualHTML: `<div class="text-8xl">⭐ ⭐ ⭐</div>`, options: ["2", "3", "4"], correctAnswer: "3", successMsg: "Perfect! Auditing means double-checking the math to make sure it's right." },
-                    { instruction: "5. Taxation: If everyone gives 1 block to the town box, what can the town build for everyone to share?", visualHTML: `<div class="flex items-center gap-2 text-6xl">🟥🟩🟦 <span class="text-rose-400">➡️</span> 🏰</div>`, options: ["A big shared castle", "Nothing", "A tiny shoe"], correctAnswer: "A big shared castle", successMsg: "Ka pai! Taxes are when we all pitch in to build things we share." }
+                    { instruction: "1. Financial Acct: If you have 3 red blocks and 2 blue blocks, how many blocks do you have in total?", visualHTML: `<div class="flex gap-2 text-4xl sm:text-6xl">🟥 🟥 🟥 <span class="text-rose-400">+</span> 🟦 🟦</div>`, options: ["4", "5", "6"], correctAnswer: "5", successMsg: "Ka pai! Accounting is all about keeping track of numbers." },
+                    { instruction: "2. Managerial Acct: If you want to eat 1 apple tomorrow and 1 the next day, how many do you need to plan for?", visualHTML: `<div class="flex gap-2 text-4xl sm:text-6xl">🍎 <span class="text-rose-400">+</span> 🍎 <span class="text-rose-400">= ?</span></div>`, options: ["2", "3", "4"], correctAnswer: "2", successMsg: "Great job! Managers plan for what they will need later." },
+                    { instruction: "3. Cost Acct: If making a lemonade costs you 2 lemons, and you have 2 lemons, can you make it?", visualHTML: `<div class="flex items-center gap-2 text-4xl sm:text-6xl">🍋🍋 <span class="text-rose-400">❓</span> 🍹</div>`, options: ["Yes", "No", "Maybe"], correctAnswer: "Yes", successMsg: "Awesome! Knowing what things cost is very important." },
+                    { instruction: "4. Auditing: Your friend counted 3 stars. Let's double check. How many are there really?", visualHTML: `<div class="text-6xl sm:text-8xl">⭐ ⭐ ⭐</div>`, options: ["2", "3", "4"], correctAnswer: "3", successMsg: "Perfect! Auditing means double-checking the math to make sure it's right." },
+                    { instruction: "5. Taxation: If everyone gives 1 block to the town box, what can the town build for everyone to share?", visualHTML: `<div class="flex items-center gap-2 text-4xl sm:text-6xl">🟥🟩🟦 <span class="text-rose-400">➡️</span> 🏰</div>`, options: ["A big shared castle", "Nothing", "A tiny shoe"], correctAnswer: "A big shared castle", successMsg: "Ka pai! Taxes are when we all pitch in to build things we share." }
                 ]
             },
             {
                 id: 2, title: "2. Saving & Growing", icon: "🐖", subject: "Accounting & Finance (6-10)", bgGradient: "bg-gradient-to-b from-[#eaf4e5] to-[#f8f4e6]", characterId: "svg-kiwi",
                 questions: [
-                    { instruction: "6. Forensic Acct: Oh no! A shiny coin rolled away. Where should we look very closely to solve the mystery?", visualHTML: `<div class="text-8xl">🔍 🪙</div>`, options: ["Under the rug", "In the sky", "In the fridge"], correctAnswer: "Under the rug", successMsg: "Great job! Forensic accountants solve money mysteries." },
-                    { instruction: "7. Corporate Finance: Where is a safe, fun place at home to save up your extra coins for a big treehouse?", visualHTML: `<div class="text-8xl">🪙</div>`, options: ["A Piggy Bank", "The Trash Can", "The Garden"], correctAnswer: "A Piggy Bank", successMsg: "Ka pai! Companies save up for big things just like you do." },
-                    { instruction: "8. Investment: If you plant one tiny seed and wait, what will it grow into?", visualHTML: `<div class="flex items-center gap-4 text-7xl">🌱 <span class="text-rose-400">➡️</span> ❓</div>`, options: ["A big plant with lots of food", "A shoe", "A rock"], correctAnswer: "A big plant with lots of food", successMsg: "Yes! Investing is planting something small to get something big later." },
-                    { instruction: "9. Financial Markets: Where do lots of people go to trade their apples for bread and toys?", visualHTML: `<div class="text-8xl">🏪</div>`, options: ["The Town Market", "The Bathroom", "The Clouds"], correctAnswer: "The Town Market", successMsg: "Awesome! Markets are where people trade and share." },
-                    { instruction: "10. Real Estate: What do you call a cozy building that a family buys to live inside?", visualHTML: `<div class="text-8xl">🏠</div>`, options: ["A House", "A Car", "A Boat"], correctAnswer: "A House", successMsg: "Perfect! Real estate is all about houses and buildings." }
+                    { instruction: "6. Forensic Acct: Oh no! A shiny coin rolled away. Where should we look very closely to solve the mystery?", visualHTML: `<div class="text-6xl sm:text-8xl">🔍 🪙</div>`, options: ["Under the rug", "In the sky", "In the fridge"], correctAnswer: "Under the rug", successMsg: "Great job! Forensic accountants solve money mysteries." },
+                    { instruction: "7. Corporate Finance: Where is a safe, fun place at home to save up your extra coins for a big treehouse?", visualHTML: `<div class="text-6xl sm:text-8xl">🪙</div>`, options: ["A Piggy Bank", "The Trash Can", "The Garden"], correctAnswer: "A Piggy Bank", successMsg: "Ka pai! Companies save up for big things just like you do." },
+                    { instruction: "8. Investment: If you plant one tiny seed and wait, what will it grow into?", visualHTML: `<div class="flex items-center gap-4 text-5xl sm:text-7xl">🌱 <span class="text-rose-400">➡️</span> ❓</div>`, options: ["A big plant with lots of food", "A shoe", "A rock"], correctAnswer: "A big plant with lots of food", successMsg: "Yes! Investing is planting something small to get something big later." },
+                    { instruction: "9. Financial Markets: Where do lots of people go to trade their apples for bread and toys?", visualHTML: `<div class="text-6xl sm:text-8xl">🏪</div>`, options: ["The Town Market", "The Bathroom", "The Clouds"], correctAnswer: "The Town Market", successMsg: "Awesome! Markets are where people trade and share." },
+                    { instruction: "10. Real Estate: What do you call a cozy building that a family buys to live inside?", visualHTML: `<div class="text-6xl sm:text-8xl">🏠</div>`, options: ["A House", "A Car", "A Boat"], correctAnswer: "A House", successMsg: "Perfect! Real estate is all about houses and buildings." }
                 ]
             },
             {
                 id: 3, title: "3. Smart Choices", icon: "🤝", subject: "Finance (11-15)", bgGradient: "bg-gradient-to-b from-[#eaf4e5] to-[#f8f4e6]", characterId: "svg-huntaway",
                 questions: [
-                    { instruction: "11. International Fin: If you trade your blue block with a friend from far across the ocean, what is that called?", visualHTML: `<div class="flex gap-4 text-7xl">🟦 <span class="text-rose-400">🌊</span> 🟥</div>`, options: ["Global Trading", "Sleeping", "Hiding"], correctAnswer: "Global Trading", successMsg: "Great! We can trade with friends all over the world." },
-                    { instruction: "12. M&A: If you have a lemonade stand and your friend has a cookie stand, what happens if you push them together?", visualHTML: `<div class="flex items-center gap-2 text-6xl">🍋 <span class="text-rose-400">+</span> 🍪 <span class="text-rose-400">=</span> 🏪</div>`, options: ["One giant fun stand!", "They disappear", "They melt"], correctAnswer: "One giant fun stand!", successMsg: "Ka pai! That is like companies joining together." },
-                    { instruction: "13. Behavioral Fin: Sometimes you want a silly toy just because your friend has it. Is that a choice made by your brain or your feelings?", visualHTML: `<div class="text-8xl">💖</div>`, options: ["Feelings", "Brain", "Toes"], correctAnswer: "Feelings", successMsg: "Yes! Our feelings can change how we spend money." },
-                    { instruction: "14. Risk Mgt: To keep your head safe when you ride a fast bike, what should you wear?", visualHTML: `<div class="text-8xl">🚲</div>`, options: ["A Helmet", "A Scarf", "A Crown"], correctAnswer: "A Helmet", successMsg: "Awesome! Risk management means wearing your helmet to protect things." },
-                    { instruction: "15. VC & Equity: If your friend is building a tower and needs 1 more block, what should you do to help it grow?", visualHTML: `<div class="text-8xl">🧱</div>`, options: ["Give them a block", "Knock it down", "Run away"], correctAnswer: "Give them a block", successMsg: "Perfect! Giving someone a boost helps them grow big things." }
+                    { instruction: "11. International Fin: If you trade your blue block with a friend from far across the ocean, what is that called?", visualHTML: `<div class="flex gap-4 text-5xl sm:text-7xl">🟦 <span class="text-rose-400">🌊</span> 🟥</div>`, options: ["Global Trading", "Sleeping", "Hiding"], correctAnswer: "Global Trading", successMsg: "Great! We can trade with friends all over the world." },
+                    { instruction: "12. M&A: If you have a lemonade stand and your friend has a cookie stand, what happens if you push them together?", visualHTML: `<div class="flex items-center gap-2 text-4xl sm:text-6xl">🍋 <span class="text-rose-400">+</span> 🍪 <span class="text-rose-400">=</span> 🏪</div>`, options: ["One giant fun stand!", "They disappear", "They melt"], correctAnswer: "One giant fun stand!", successMsg: "Ka pai! That is like companies joining together." },
+                    { instruction: "13. Behavioral Fin: Sometimes you want a silly toy just because your friend has it. Is that a choice made by your brain or your feelings?", visualHTML: `<div class="text-6xl sm:text-8xl">💖</div>`, options: ["Feelings", "Brain", "Toes"], correctAnswer: "Feelings", successMsg: "Yes! Our feelings can change how we spend money." },
+                    { instruction: "14. Risk Mgt: To keep your head safe when you ride a fast bike, what should you wear?", visualHTML: `<div class="text-6xl sm:text-8xl">🚲</div>`, options: ["A Helmet", "A Scarf", "A Crown"], correctAnswer: "A Helmet", successMsg: "Awesome! Risk management means wearing your helmet to protect things." },
+                    { instruction: "15. VC & Equity: If your friend is building a tower and needs 1 more block, what should you do to help it grow?", visualHTML: `<div class="text-6xl sm:text-8xl">🧱</div>`, options: ["Give them a block", "Knock it down", "Run away"], correctAnswer: "Give them a block", successMsg: "Perfect! Giving someone a boost helps them grow big things." }
                 ]
             },
             {
                 id: 4, title: "4. Sharing Ideas", icon: "📢", subject: "Marketing (16-20)", bgGradient: "bg-gradient-to-b from-[#eaf4e5] to-[#f8f4e6]", characterId: "svg-kea",
                 questions: [
-                    { instruction: "16. Principles (4Ps): If we want people to see our lemonade stand, what color should we paint our sign?", visualHTML: `<div class="text-8xl">🎨</div>`, options: ["A bright, happy color", "Invisible", "Mud brown"], correctAnswer: "A bright, happy color", successMsg: "Great! That is exactly what marketing is—showing and telling!" },
-                    { instruction: "17. Consumer Behav: Why do you think all the kids want to play with the shiny red ball?", visualHTML: `<div class="text-8xl">🔴</div>`, options: ["Because it looks fun", "Because it is scary", "Because it is boring"], correctAnswer: "Because it looks fun", successMsg: "Ka pai! Figuring out what people like is very helpful." },
-                    { instruction: "18. Market Research: If you want to know what juice your friends like best, what should you do?", visualHTML: `<div class="text-8xl">🙋</div>`, options: ["Ask them a question", "Hide in a tree", "Drink it all yourself"], correctAnswer: "Ask them a question", successMsg: "Yes! Asking questions is how we do research." },
-                    { instruction: "19. Digital Mktg: If you want to invite your friend to a party quickly, where can you send a message?", visualHTML: `<div class="text-8xl">📱</div>`, options: ["On a tablet or phone", "On a leaf", "In a shoe"], correctAnswer: "On a tablet or phone", successMsg: "Awesome! Digital marketing uses screens to share messages." },
-                    { instruction: "20. Brand Mgt: To make our club super special, what should we draw on our flag?", visualHTML: `<div class="text-8xl">🚩</div>`, options: ["A special star logo", "A blank space", "A smudge"], correctAnswer: "A special star logo", successMsg: "Perfect! A special logo makes a brand." }
+                    { instruction: "16. Principles (4Ps): If we want people to see our lemonade stand, what color should we paint our sign?", visualHTML: `<div class="text-6xl sm:text-8xl">🎨</div>`, options: ["A bright, happy color", "Invisible", "Mud brown"], correctAnswer: "A bright, happy color", successMsg: "Great! That is exactly what marketing is—showing and telling!" },
+                    { instruction: "17. Consumer Behav: Why do you think all the kids want to play with the shiny red ball?", visualHTML: `<div class="text-6xl sm:text-8xl">🔴</div>`, options: ["Because it looks fun", "Because it is scary", "Because it is boring"], correctAnswer: "Because it looks fun", successMsg: "Ka pai! Figuring out what people like is very helpful." },
+                    { instruction: "18. Market Research: If you want to know what juice your friends like best, what should you do?", visualHTML: `<div class="text-6xl sm:text-8xl">🙋</div>`, options: ["Ask them a question", "Hide in a tree", "Drink it all yourself"], correctAnswer: "Ask them a question", successMsg: "Yes! Asking questions is how we do research." },
+                    { instruction: "19. Digital Mktg: If you want to invite your friend to a party quickly, where can you send a message?", visualHTML: `<div class="text-6xl sm:text-8xl">📱</div>`, options: ["On a tablet or phone", "On a leaf", "In a shoe"], correctAnswer: "On a tablet or phone", successMsg: "Awesome! Digital marketing uses screens to share messages." },
+                    { instruction: "20. Brand Mgt: To make our club super special, what should we draw on our flag?", visualHTML: `<div class="text-6xl sm:text-8xl">🚩</div>`, options: ["A special star logo", "A blank space", "A smudge"], correctAnswer: "A special star logo", successMsg: "Perfect! A special logo makes a brand." }
                 ]
             },
             {
                 id: 5, title: "5. Telling the World", icon: "🌍", subject: "Marketing & HR (21-25)", bgGradient: "bg-gradient-to-b from-[#eaf4e5] to-[#f8f4e6]", characterId: "svg-whio",
                 questions: [
-                    { instruction: "21. Sales Mgt: If you have extra cookies, how do you ask someone if they want to buy one?", visualHTML: `<div class="text-8xl">🍪</div>`, options: ["Smile and ask nicely", "Yell very loud", "Throw it at them"], correctAnswer: "Smile and ask nicely", successMsg: "Great job! Being friendly is the best way to sell." },
-                    { instruction: "22. Int. Mktg: If a new friend speaks a different language, how can you share your toy?", visualHTML: `<div class="text-8xl">👋</div>`, options: ["Learn how to say Hello", "Ignore them", "Run away"], correctAnswer: "Learn how to say Hello", successMsg: "Ka pai! We adapt to share with everyone." },
-                    { instruction: "23. Public Relations: What should you tell the town to make them happy about your new shop?", visualHTML: `<div class="text-8xl">🗞️</div>`, options: ["A happy, true story", "A scary lie", "Nothing"], correctAnswer: "A happy, true story", successMsg: "Yes! PR is telling good stories to the public." },
-                    { instruction: "24. Org Behavior: When you play a game with a team, how should everyone treat each other?", visualHTML: `<div class="text-8xl">🤗</div>`, options: ["Be kind and helpful", "Be mean", "Don't share"], correctAnswer: "Be kind and helpful", successMsg: "Awesome! Good behavior makes a happy team." },
-                    { instruction: "25. HRM: If you need to paint a big picture, who should you pick to help you?", visualHTML: `<div class="text-8xl">🖌️</div>`, options: ["A friend who loves art", "A dog", "A plant"], correctAnswer: "A friend who loves art", successMsg: "Perfect! HR is picking the right person for the job." }
+                    { instruction: "21. Sales Mgt: If you have extra cookies, how do you ask someone if they want to buy one?", visualHTML: `<div class="text-6xl sm:text-8xl">🍪</div>`, options: ["Smile and ask nicely", "Yell very loud", "Throw it at them"], correctAnswer: "Smile and ask nicely", successMsg: "Great job! Being friendly is the best way to sell." },
+                    { instruction: "22. Int. Mktg: If a new friend speaks a different language, how can you share your toy?", visualHTML: `<div class="text-6xl sm:text-8xl">👋</div>`, options: ["Learn how to say Hello", "Ignore them", "Run away"], correctAnswer: "Learn how to say Hello", successMsg: "Ka pai! We adapt to share with everyone." },
+                    { instruction: "23. Public Relations: What should you tell the town to make them happy about your new shop?", visualHTML: `<div class="text-6xl sm:text-8xl">🗞️</div>`, options: ["A happy, true story", "A scary lie", "Nothing"], correctAnswer: "A happy, true story", successMsg: "Yes! PR is telling good stories to the public." },
+                    { instruction: "24. Org Behavior: When you play a game with a team, how should everyone treat each other?", visualHTML: `<div class="text-6xl sm:text-8xl">🤗</div>`, options: ["Be kind and helpful", "Be mean", "Don't share"], correctAnswer: "Be kind and helpful", successMsg: "Awesome! Good behavior makes a happy team." },
+                    { instruction: "25. HRM: If you need to paint a big picture, who should you pick to help you?", visualHTML: `<div class="text-6xl sm:text-8xl">🖌️</div>`, options: ["A friend who loves art", "A dog", "A plant"], correctAnswer: "A friend who loves art", successMsg: "Perfect! HR is picking the right person for the job." }
                 ]
             },
             {
                 id: 6, title: "6. Leading the Team", icon: "🏅", subject: "Management (26-30)", bgGradient: "bg-gradient-to-b from-[#eaf4e5] to-[#f8f4e6]", characterId: "svg-tui",
                 questions: [
-                    { instruction: "26. Strategic Mgt: If you want to find the hidden treasure, what should you make first?", visualHTML: `<div class="text-8xl">🗺️</div>`, options: ["A map and a plan", "A sandwich", "A mess"], correctAnswer: "A map and a plan", successMsg: "Great! Strategy means having a good plan." },
-                    { instruction: "27. Leadership: When your friend is trying to climb a big hill, what should a good leader do?", visualHTML: `<div class="text-8xl">👏</div>`, options: ["Cheer for them!", "Laugh at them", "Push them down"], correctAnswer: "Cheer for them!", successMsg: "Ka pai! Leaders inspire and cheer people on." },
-                    { instruction: "28. Change Mgt: If the rules of the game change, what is the best thing to do?", visualHTML: `<div class="text-8xl">🔄</div>`, options: ["Learn the new rule", "Cry and stop playing", "Cheat"], correctAnswer: "Learn the new rule", successMsg: "Yes! Things change, and we can learn to change too." },
-                    { instruction: "29. Entrepreneurship: If you want to make and sell your own lemonade, you are starting a...", visualHTML: `<div class="text-8xl">🍋</div>`, options: ["New Business", "A nap", "A fight"], correctAnswer: "New Business", successMsg: "Awesome! An entrepreneur builds new things." },
-                    { instruction: "30. Project Mgt: To make sure you finish all your chores, what should you write down?", visualHTML: `<div class="text-8xl">📝</div>`, options: ["A checklist", "A poem", "A secret"], correctAnswer: "A checklist", successMsg: "Perfect! Lists help manage big projects." }
+                    { instruction: "26. Strategic Mgt: If you want to find the hidden treasure, what should you make first?", visualHTML: `<div class="text-6xl sm:text-8xl">🗺️</div>`, options: ["A map and a plan", "A sandwich", "A mess"], correctAnswer: "A map and a plan", successMsg: "Great! Strategy means having a good plan." },
+                    { instruction: "27. Leadership: When your friend is trying to climb a big hill, what should a good leader do?", visualHTML: `<div class="text-6xl sm:text-8xl">👏</div>`, options: ["Cheer for them!", "Laugh at them", "Push them down"], correctAnswer: "Cheer for them!", successMsg: "Ka pai! Leaders inspire and cheer people on." },
+                    { instruction: "28. Change Mgt: If the rules of the game change, what is the best thing to do?", visualHTML: `<div class="text-6xl sm:text-8xl">🔄</div>`, options: ["Learn the new rule", "Cry and stop playing", "Cheat"], correctAnswer: "Learn the new rule", successMsg: "Yes! Things change, and we can learn to change too." },
+                    { instruction: "29. Entrepreneurship: If you want to make and sell your own lemonade, you are starting a...", visualHTML: `<div class="text-6xl sm:text-8xl">🍋</div>`, options: ["New Business", "A nap", "A fight"], correctAnswer: "New Business", successMsg: "Awesome! An entrepreneur builds new things." },
+                    { instruction: "30. Project Mgt: To make sure you finish all your chores, what should you write down?", visualHTML: `<div class="text-6xl sm:text-8xl">📝</div>`, options: ["A checklist", "A poem", "A secret"], correctAnswer: "A checklist", successMsg: "Perfect! Lists help manage big projects." }
                 ]
             },
             {
                 id: 7, title: "7. Making & Moving", icon: "🚚", subject: "Mgt & Operations (31-35)", bgGradient: "bg-gradient-to-b from-[#eaf4e5] to-[#f8f4e6]", characterId: "svg-ruru",
                 questions: [
-                    { instruction: "31. Negotiation: If you have a car and want a block, and your friend has a block and wants a car, what can you do?", visualHTML: `<div class="flex gap-4 text-7xl">🚗 <span class="text-rose-400">🔄</span> 🟥</div>`, options: ["Trade fairly", "Fight over it", "Break them"], correctAnswer: "Trade fairly", successMsg: "Great job! Negotiation is making a fair trade." },
-                    { instruction: "32. Operations Mgt: When we want to bake a cake, what do we have to follow step-by-step?", visualHTML: `<div class="text-8xl">🍰</div>`, options: ["A Recipe", "A Map", "A Song"], correctAnswer: "A Recipe", successMsg: "Ka pai! Operations are the steps to make things." },
-                    { instruction: "33. Supply Chain: How does the apple get from the big tree on the farm all the way to the store?", visualHTML: `<div class="text-8xl">🍎</div>`, options: ["In a delivery truck", "On a bicycle", "By walking"], correctAnswer: "In a delivery truck", successMsg: "Yes! The supply chain moves things along." },
-                    { instruction: "34. Logistics: If the truck driver needs to deliver toys, what helps them find the right house?", visualHTML: `<div class="text-8xl">🛣️</div>`, options: ["Following a road map", "Closing their eyes", "Looking at the clouds"], correctAnswer: "Following a road map", successMsg: "Awesome! Logistics is moving things safely." },
-                    { instruction: "35. Quality Mgt: Before we sell the apples, we should check them to make sure they have no...", visualHTML: `<div class="text-8xl">🍏</div>`, options: ["Bruises or yucky spots", "Stems", "Colors"], correctAnswer: "Bruises or yucky spots", successMsg: "Perfect! Quality means checking that it is good." }
+                    { instruction: "31. Negotiation: If you have a car and want a block, and your friend has a block and wants a car, what can you do?", visualHTML: `<div class="flex gap-4 text-5xl sm:text-7xl">🚗 <span class="text-rose-400">🔄</span> 🟥</div>`, options: ["Trade fairly", "Fight over it", "Break them"], correctAnswer: "Trade fairly", successMsg: "Great job! Negotiation is making a fair trade." },
+                    { instruction: "32. Operations Mgt: When we want to bake a cake, what do we have to follow step-by-step?", visualHTML: `<div class="text-6xl sm:text-8xl">🍰</div>`, options: ["A Recipe", "A Map", "A Song"], correctAnswer: "A Recipe", successMsg: "Ka pai! Operations are the steps to make things." },
+                    { instruction: "33. Supply Chain: How does the apple get from the big tree on the farm all the way to the store?", visualHTML: `<div class="text-6xl sm:text-8xl">🍎</div>`, options: ["In a delivery truck", "On a bicycle", "By walking"], correctAnswer: "In a delivery truck", successMsg: "Yes! The supply chain moves things along." },
+                    { instruction: "34. Logistics: If the truck driver needs to deliver toys, what helps them find the right house?", visualHTML: `<div class="text-6xl sm:text-8xl">🛣️</div>`, options: ["Following a road map", "Closing their eyes", "Looking at the clouds"], correctAnswer: "Following a road map", successMsg: "Awesome! Logistics is moving things safely." },
+                    { instruction: "35. Quality Mgt: Before we sell the apples, we should check them to make sure they have no...", visualHTML: `<div class="text-6xl sm:text-8xl">🍏</div>`, options: ["Bruises or yucky spots", "Stems", "Colors"], correctAnswer: "Bruises or yucky spots", successMsg: "Perfect! Quality means checking that it is good." }
                 ]
             },
             {
                 id: 8, title: "8. Stock & Supply", icon: "📦", subject: "Ops & Economics (36-40)", bgGradient: "bg-gradient-to-b from-[#eaf4e5] to-[#f8f4e6]", characterId: "svg-takahe",
                 questions: [
-                    { instruction: "36. Procurement: If we want to bake the best bread, what must we buy first?", visualHTML: `<div class="flex gap-4 text-7xl">❓ <span class="text-rose-400">➡️</span> 🍞</div>`, options: ["The best flour", "Water and soap", "Pillows"], correctAnswer: "The best flour", successMsg: "Great! We always need to gather the right materials first." },
-                    { instruction: "37. Inventory: Where does the shopkeeper keep the extra boxes before they go on the shelf?", visualHTML: `<div class="text-8xl">🏪</div>`, options: ["In the storage room", "In the oven", "Under the bed"], correctAnswer: "In the storage room", successMsg: "Ka pai! That is called keeping inventory." },
-                    { instruction: "38. Microeconomics: Which of these is something you absolutely NEED to stay alive?", visualHTML: `<div class="text-8xl">💧</div>`, options: ["Clean drinking water", "A giant lollipop", "A new video game"], correctAnswer: "Clean drinking water", successMsg: "Yes! Water is a true need. Candy is just a want." },
-                    { instruction: "39. Macroeconomics: Does a big town work better when people fight, or when people share and work together?", visualHTML: `<div class="text-8xl">🏙️</div>`, options: ["Work together and share", "Fight", "Hide in houses"], correctAnswer: "Work together and share", successMsg: "Awesome! A big economy works when we help each other." },
-                    { instruction: "40. Bus. Statistics: If you want to count how many bugs you saw today, what can you draw on a paper?", visualHTML: `<div class="text-8xl">📝</div>`, options: ["Tally marks", "A circle", "A face"], correctAnswer: "Tally marks", successMsg: "Perfect! Tally marks help us count statistics." }
+                    { instruction: "36. Procurement: If we want to bake the best bread, what must we buy first?", visualHTML: `<div class="flex gap-4 text-5xl sm:text-7xl">❓ <span class="text-rose-400">➡️</span> 🍞</div>`, options: ["The best flour", "Water and soap", "Pillows"], correctAnswer: "The best flour", successMsg: "Great! We always need to gather the right materials first." },
+                    { instruction: "37. Inventory: Where does the shopkeeper keep the extra boxes before they go on the shelf?", visualHTML: `<div class="text-6xl sm:text-8xl">🏪</div>`, options: ["In the storage room", "In the oven", "Under the bed"], correctAnswer: "In the storage room", successMsg: "Ka pai! That is called keeping inventory." },
+                    { instruction: "38. Microeconomics: Which of these is something you absolutely NEED to stay alive?", visualHTML: `<div class="text-6xl sm:text-8xl">💧</div>`, options: ["Clean drinking water", "A giant lollipop", "A new video game"], correctAnswer: "Clean drinking water", successMsg: "Yes! Water is a true need. Candy is just a want." },
+                    { instruction: "39. Macroeconomics: Does a big town work better when people fight, or when people share and work together?", visualHTML: `<div class="text-6xl sm:text-8xl">🏙️</div>`, options: ["Work together and share", "Fight", "Hide in houses"], correctAnswer: "Work together and share", successMsg: "Awesome! A big economy works when we help each other." },
+                    { instruction: "40. Bus. Statistics: If you want to count how many bugs you saw today, what can you draw on a paper?", visualHTML: `<div class="text-6xl sm:text-8xl">📝</div>`, options: ["Tally marks", "A circle", "A face"], correctAnswer: "Tally marks", successMsg: "Perfect! Tally marks help us count statistics." }
                 ]
             },
             {
                 id: 9, title: "9. Looking at Numbers", icon: "📊", subject: "Econ & Legal (41-45)", bgGradient: "bg-gradient-to-b from-[#eaf4e5] to-[#f8f4e6]", characterId: "svg-kakapo",
                 questions: [
-                    { instruction: "41. Business Analytics: Look at this list: 5 apples, 8 bananas, 3 grapes. Which one is the biggest number?", visualHTML: `<div class="text-8xl">🍎5 🍌8 🍇3</div>`, options: ["Bananas (8)", "Apples (5)", "Grapes (3)"], correctAnswer: "Bananas (8)", successMsg: "Great job! Analyzing numbers finds the answer." },
-                    { instruction: "42. Econometrics: If we ate 2 apples yesterday and 2 today, how many will we probably want tomorrow?", visualHTML: `<div class="flex gap-2 text-6xl">🍎🍎 <span class="text-gray-500">and</span> 🍎🍎 <span class="text-rose-400">➡️ ?</span></div>`, options: ["2 apples", "100 apples", "0 apples"], correctAnswer: "2 apples", successMsg: "Ka pai! We can use yesterday to guess tomorrow." },
-                    { instruction: "43. Predictive Modeling: If the dark clouds come out and it starts raining, what will people want to use?", visualHTML: `<div class="text-8xl">🌧️</div>`, options: ["Umbrellas", "Sunglasses", "Swimsuits"], correctAnswer: "Umbrellas", successMsg: "Yes! We can predict what people need." },
-                    { instruction: "44. Business Law: Why do we have rules in a game like Tag or Hide-and-Seek?", visualHTML: `<div class="text-8xl">📜</div>`, options: ["To keep it fair and safe", "To make it boring", "To make people cry"], correctAnswer: "To keep it fair and safe", successMsg: "Awesome! Laws are just rules to keep businesses fair." },
-                    { instruction: "45. Business Ethics: When we promise to play fair and not cheat, what are we being?", visualHTML: `<div class="text-8xl">😇</div>`, options: ["Honest and good friends", "Mean", "Silly"], correctAnswer: "Honest and good friends", successMsg: "Perfect! Ethics means choosing to do the right thing." }
+                    { instruction: "41. Business Analytics: Look at this list: 5 apples, 8 bananas, 3 grapes. Which one is the biggest number?", visualHTML: `<div class="text-5xl sm:text-7xl flex flex-wrap justify-center gap-4"><span>🍎5</span> <span>🍌8</span> <span>🍇3</span></div>`, options: ["Bananas (8)", "Apples (5)", "Grapes (3)"], correctAnswer: "Bananas (8)", successMsg: "Great job! Analyzing numbers finds the answer." },
+                    { instruction: "42. Econometrics: If we ate 2 apples yesterday and 2 today, how many will we probably want tomorrow?", visualHTML: `<div class="flex gap-2 text-4xl sm:text-6xl items-center flex-wrap justify-center"><span>🍎🍎</span> <span class="text-gray-500 text-xl">and</span> <span>🍎🍎</span> <span class="text-rose-400">➡️ ?</span></div>`, options: ["2 apples", "100 apples", "0 apples"], correctAnswer: "2 apples", successMsg: "Ka pai! We can use yesterday to guess tomorrow." },
+                    { instruction: "43. Predictive Modeling: If the dark clouds come out and it starts raining, what will people want to use?", visualHTML: `<div class="text-6xl sm:text-8xl">🌧️</div>`, options: ["Umbrellas", "Sunglasses", "Swimsuits"], correctAnswer: "Umbrellas", successMsg: "Yes! We can predict what people need." },
+                    { instruction: "44. Business Law: Why do we have rules in a game like Tag or Hide-and-Seek?", visualHTML: `<div class="text-6xl sm:text-8xl">📜</div>`, options: ["To keep it fair and safe", "To make it boring", "To make people cry"], correctAnswer: "To keep it fair and safe", successMsg: "Awesome! Laws are just rules to keep businesses fair." },
+                    { instruction: "45. Business Ethics: When we promise to play fair and not cheat, what are we being?", visualHTML: `<div class="text-6xl sm:text-8xl">😇</div>`, options: ["Honest and good friends", "Mean", "Silly"], correctAnswer: "Honest and good friends", successMsg: "Perfect! Ethics means choosing to do the right thing." }
                 ]
             },
             {
                 id: 10, title: "10. Doing Good & Tech", icon: "💻", subject: "Legal & IT (46-50)", bgGradient: "bg-gradient-to-b from-[#eaf4e5] to-[#f8f4e6]", characterId: "svg-weka",
                 questions: [
-                    { instruction: "46. CSR: If you see trash on the ground near your stand, what is the kind thing to do?", visualHTML: `<div class="text-8xl">🗑️</div>`, options: ["Pick it up for the Earth", "Kick it", "Leave it"], correctAnswer: "Pick it up for the Earth", successMsg: "Great job! Corporate Responsibility means helping the Earth." },
-                    { instruction: "47. International Bus: If you make a friend who lives in another country, what can you do?", visualHTML: `<div class="text-8xl">🌍</div>`, options: ["Share ideas and play", "Ignore them", "Run away"], correctAnswer: "Share ideas and play", successMsg: "Ka pai! The whole world can work together." },
-                    { instruction: "48. MIS: If you draw a great picture on a tablet and want to keep it safe, what must you do?", visualHTML: `<div class="text-8xl">💾</div>`, options: ["Save it on the computer", "Throw the tablet", "Wash it"], correctAnswer: "Save it on the computer", successMsg: "Yes! Information systems save our important work." },
-                    { instruction: "49. E-Commerce: Where is a magical place on a computer where you can order a new book?", visualHTML: `<div class="text-8xl">🛒💻</div>`, options: ["An online store", "A video game", "A calculator"], correctAnswer: "An online store", successMsg: "Awesome! Buying things on the internet is e-commerce." },
-                    { instruction: "50. Cybersecurity: Should you ever tell a stranger your secret passwords?", visualHTML: `<div class="text-8xl">🔐</div>`, options: ["No, keep them secret", "Yes, tell everyone", "Write them on the wall"], correctAnswer: "No, keep them secret", successMsg: "Perfect! Cybersecurity means locking up our secrets safely." }
+                    { instruction: "46. CSR: If you see trash on the ground near your stand, what is the kind thing to do?", visualHTML: `<div class="text-6xl sm:text-8xl">🗑️</div>`, options: ["Pick it up for the Earth", "Kick it", "Leave it"], correctAnswer: "Pick it up for the Earth", successMsg: "Great job! Corporate Responsibility means helping the Earth." },
+                    { instruction: "47. International Bus: If you make a friend who lives in another country, what can you do?", visualHTML: `<div class="text-6xl sm:text-8xl">🌍</div>`, options: ["Share ideas and play", "Ignore them", "Run away"], correctAnswer: "Share ideas and play", successMsg: "Ka pai! The whole world can work together." },
+                    { instruction: "48. MIS: If you draw a great picture on a tablet and want to keep it safe, what must you do?", visualHTML: `<div class="text-6xl sm:text-8xl">💾</div>`, options: ["Save it on the computer", "Throw the tablet", "Wash it"], correctAnswer: "Save it on the computer", successMsg: "Yes! Information systems save our important work." },
+                    { instruction: "49. E-Commerce: Where is a magical place on a computer where you can order a new book?", visualHTML: `<div class="text-6xl sm:text-8xl">🛒💻</div>`, options: ["An online store", "A video game", "A calculator"], correctAnswer: "An online store", successMsg: "Awesome! Buying things on the internet is e-commerce." },
+                    { instruction: "50. Cybersecurity: Should you ever tell a stranger your secret passwords?", visualHTML: `<div class="text-6xl sm:text-8xl">🔐</div>`, options: ["No, keep them secret", "Yes, tell everyone", "Write them on the wall"], correctAnswer: "No, keep them secret", successMsg: "Perfect! Cybersecurity means locking up our secrets safely." }
                 ]
             }
         ];
@@ -468,7 +469,7 @@
                 
                 const btn = document.createElement('button');
                 btn.className = `game-btn p-6 rounded-3xl border-4 border-white text-left flex items-center gap-4 ${isLocked ? 'bg-gray-200 level-locked shadow-none border-b-4' : `${colorClass} hover:brightness-105 shadow-[0_8px_0_rgba(0,0,0,0.1)] border-b-8 active:border-b-4 active:translate-y-1 transition-all`}`;
-                btn.innerHTML = `<div class="text-5xl sm:text-6xl bg-white/40 rounded-full p-3 drop-shadow-sm">${isLocked ? '🔒' : level.icon}</div><div><div class="font-black text-xl sm:text-2xl ${textClass} drop-shadow-sm">${level.title}</div><div class="text-base sm:text-lg font-bold ${isLocked ? 'text-gray-500' : 'text-black/50'}">${isLocked ? 'Locked' : level.subject}</div></div>`;
+                btn.innerHTML = `<div class="text-4xl sm:text-6xl bg-white/40 rounded-full p-3 drop-shadow-sm">${isLocked ? '🔒' : level.icon}</div><div><div class="font-black text-lg sm:text-2xl ${textClass} drop-shadow-sm">${level.title}</div><div class="text-sm sm:text-lg font-bold ${isLocked ? 'text-gray-500' : 'text-black/50'}">${isLocked ? 'Locked' : level.subject}</div></div>`;
                 if (!isLocked) btn.onclick = () => loadLevel(level);
                 container.appendChild(btn);
             });
@@ -511,7 +512,7 @@
             for (let i = 0; i < totalQ; i++) {
                 const star = document.createElement('span');
                 star.innerText = '⭐';
-                star.className = `text-lg sm:text-xl drop-shadow-sm ${i <= GameState.currentQuestionIndex ? 'star-filled' : 'star-empty'}`;
+                star.className = `text-base sm:text-xl drop-shadow-sm ${i <= GameState.currentQuestionIndex ? 'star-filled' : 'star-empty'}`;
                 progressContainer.appendChild(star);
             }
             
@@ -520,7 +521,7 @@
             
             const charEl = document.getElementById('level-character');
             charEl.innerHTML = document.getElementById(level.characterId).innerHTML;
-            charEl.className = 'animate-float mb-4 z-20 drop-shadow-2xl scale-125';
+            charEl.className = 'animate-float mb-4 z-20 drop-shadow-2xl scale-110 sm:scale-125';
 
             const optionsContainer = document.getElementById('level-options');
             optionsContainer.innerHTML = '';
@@ -528,11 +529,14 @@
             currentQ.options.forEach((opt, idx) => {
                 const btn = document.createElement('button');
                 const optStyle = optionColors[idx % optionColors.length];
-                btn.className = `game-btn ${optStyle} hover:brightness-95 font-black text-2xl sm:text-3xl py-5 px-8 rounded-3xl border-b-8 border-x-4 border-t-4 w-full sm:w-auto min-w-[220px] shadow-[0_6px_0_rgba(0,0,0,0.1)] active:border-b-4 active:translate-y-1 transition-all`;
+                btn.className = `game-btn ${optStyle} hover:brightness-95 font-black text-xl sm:text-3xl py-4 sm:py-5 px-6 sm:px-8 rounded-3xl border-b-8 border-x-4 border-t-4 w-full sm:w-auto min-w-[220px] shadow-[0_6px_0_rgba(0,0,0,0.1)] active:border-b-4 active:translate-y-1 transition-all flex-1`;
                 btn.innerText = opt;
                 btn.onclick = () => checkAnswer(opt, level, btn);
                 optionsContainer.appendChild(btn);
             });
+
+            // Auto-scroll to top when new question loads so instruction is visible
+            document.getElementById('level-playarea').scrollTop = 0;
         }
 
         function checkAnswer(selected, level, btnElement) {
@@ -545,7 +549,7 @@
                 btnElement.classList.replace('bg-amber-100', 'bg-emerald-200');
                 btnElement.classList.replace('bg-teal-100', 'bg-emerald-200');
                 btnElement.classList.replace('bg-rose-100', 'bg-emerald-200');
-                btnElement.classList.add('text-emerald-900', 'scale-110', 'border-emerald-400');
+                btnElement.classList.add('text-emerald-900', 'scale-105', 'border-emerald-400');
                 
                 const rect = btnElement.getBoundingClientRect();
                 burstStars(rect.left + rect.width / 2, rect.top + rect.height / 2);
